@@ -1,0 +1,75 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "Photos",
+      "images": [
+        "/assets/photo/photo1.jpg",
+        "/assets/photo/photo2.jpg",
+        "/assets/photo/photo3.jpg",
+        "/assets/photo/photo4.jpg",
+        "/assets/photo/photo5.jpg",
+        "/assets/photo/photo6.jpg",
+        "/assets/photo/photo7.jpg",
+        "/assets/photo/photo8.jpg",
+        "/assets/photo/photo9.jpg",
+        "/assets/photo/photo10.jpg",
+        "/assets/photo/photo11.jpg",
+        "/assets/photo/photo12.jpg",
+        "/assets/photo/photo13.jpg",
+        "/assets/photo/photo14.jpg",
+        "/assets/photo/photo15.jpg",
+        "/assets/photo/photo16.jpg",
+        "/assets/photo/photo17.jpg"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Pablo bébé",
+      "images": [
+        "/assets/bebe/bebe1.jpg",
+        "/assets/bebe/bebe2.jpg",
+        "/assets/bebe/bebe3.jpg",
+        "/assets/bebe/bebe4.jpg",
+        "/assets/bebe/bebe5.jpg"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Pablo en famille",
+      "images": [
+        "/assets/famille/famille1.jpg",
+        "/assets/famille/famille2.jpg",
+        "/assets/famille/famille3.jpg",
+        "/assets/famille/famille4.jpg",
+        "/assets/famille/famille5.jpg"
+      ]
+    },
+
+    {
+      "id": 3,
+      "name": "Pablo dodo",
+      "images": [
+        "/assets/dodo/dodo1.jpg",
+        "/assets/dodo/dodo2.jpg",
+        "/assets/dodo/dodo3.jpg",
+        "/assets/dodo/dodo4.jpg",
+        "/assets/dodo/dodo5.jpg",
+        "/assets/dodo/dodo6.jpg",
+        "/assets/dodo/dodo7.jpg"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Pablo souriant",
+      "images": [
+        "/assets/souris/souris1.jpg",
+        "/assets/souris/souris2.jpg",
+        "/assets/souris/souris3.jpg",
+        "/assets/souris/souris4.jpg",
+        "/assets/souris/souris5.jpg",
+        "/assets/souris/souris6.jpg"
+      ]
+    }
+  ]
+}
