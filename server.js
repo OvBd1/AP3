@@ -1,1 +1,0 @@
-https://github.com/OvBd1/AP3/invitations
