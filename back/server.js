@@ -6,21 +6,18 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Connexion à la base de données
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '', // Mets ici ton mot de passe MySQL
-    database: 'pablo'
+    password: '',
+    database: 'slam_gsb'
 });
 
-// Route pour gérer la connexion des utilisateurs
 app.post('/login', (req, res) => {
-    const { username, password } = req.body;
+    const { adresse_mail, mdp } = req.body;
 
-    // Vérification dans la base de données
-    const query = 'SELECT * FROM users WHERE username = ? AND password = ?';
-    db.query(query, [username, password], (err, result) => {
+    const query = 'SELECT * FROM t_users WHERE adresse_mail = ? AND mdp = ?';
+    db.query(query, [adresse_mail, mdp], (err, result) => {
         if (err) {
             return res.status(500).send('Erreur du serveur');
         }
@@ -32,7 +29,6 @@ app.post('/login', (req, res) => {
     });
 });
 
-// Lancer le serveur
 app.listen(5000, () => {
     console.log('Serveur démarré sur le port 5000');
 });
