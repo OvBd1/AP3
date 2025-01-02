@@ -11,7 +11,7 @@ const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '', // Mets ici ton mot de passe MySQL
-    database: 'pablo'
+    database: 'nombdd'
 });
 
 // Route pour gérer la connexion des utilisateurs

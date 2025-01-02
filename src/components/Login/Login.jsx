@@ -22,7 +22,7 @@ const Login = () => {
         })
         .then((response) => {
             if (response.ok) {
-                navigate('/message'); // Redirection vers la page de message
+                navigate('/home');
             } else {
                 alert('Nom d’utilisateur ou mot de passe incorrect');
             }
