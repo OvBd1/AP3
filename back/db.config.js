@@ -1,6 +1,6 @@
-const mysql = require('mysql2/promise')
+import mysql from 'mysql2/promise'
 
-const db =  mysql.createConnection({
+const db =  mysql.createPool({
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
   user: process.env.DB_USER,
@@ -13,4 +13,5 @@ if (db) {
 } else {
   console.log('Erreur de connexion à la base de données')
 }
-module.exports = db
+
+export default db

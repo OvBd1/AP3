@@ -1,6 +1,7 @@
 /***********************************/
 /*** Import des module nécessaires */
-const jwt = require('jsonwebtoken')
+import pkg from 'jsonwebtoken';
+const { verify } = pkg;
 
 /*************************/
 /*** Extraction du token */
@@ -29,7 +30,7 @@ const checkTokenMiddleware = (req, res, next) => {
     }
 
     // Vérifier la validité du token
-    jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
+    verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
         if(err){
             return res.status(401).json({message: 'Bad token'})
         }
@@ -38,4 +39,4 @@ const checkTokenMiddleware = (req, res, next) => {
     })
 }
 
-module.exports = checkTokenMiddleware
+export default checkTokenMiddleware

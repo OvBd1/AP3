@@ -1,18 +1,18 @@
-const express = require('express')
-const bcrypt = require('bcrypt')
-const db = require('../db.config.js')
-const userCtrl = require('../controllers/user')
+import { Router } from 'express'
+import bcrypt from 'bcrypt'
+import db from '../db.config.js'
+import { getAllUsers, getUser, addUser, updateUser, deleteUser } from '../controllers/user.js'
 
-const router = express.Router()
+const router = Router()
 
-router.get('', userCtrl.getAllUsers)
+router.get('', getAllUsers)
 
-router.get('/:id', userCtrl.getUser)
+router.get('/:id', getUser)
 
-router.put("", userCtrl.addUser)
+router.put("", addUser)
 
-router.patch('/:id', userCtrl.updateUser)
+router.patch('/:id', updateUser)
 
-router.delete("/:id", userCtrl.deleteUser)
+router.delete("/:id", deleteUser)
 
-module.exports = router
+export default router

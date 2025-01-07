@@ -1,8 +1,10 @@
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
-const db = require('../db.config.js')
+import { compare } from 'bcrypt'
+import pkg from 'jsonwebtoken';
+import db from '../db.config.js'
 
-exports.login = async (req, res) => {
+const { sign } = pkg
+
+export async function login(req, res) {
   const { adresse_mail, mdp } = req.body
 
   if (!adresse_mail || !mdp) {
@@ -17,13 +19,13 @@ exports.login = async (req, res) => {
       return res.status(404).json({ message: 'Utilisateur n\'existe pas' })
     }
 
-    let match = await bcrypt.compare(mdp, user.mdp)
+    let match = await compare(mdp, user.mdp)
 
     if (!match) {
       return res.status(401).json({ message: 'Mauvais mot de passe' })
     }
 
-    const token = jwt.sign({
+    const token = sign({
       id: user.id_t_user,
       nom: user.nom,
       prenom: user.prenom,
