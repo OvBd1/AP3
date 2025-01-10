@@ -1,6 +1,4 @@
 import { Router } from 'express'
-import bcrypt from 'bcrypt'
-import db from '../db.config.js'
 import { getAllUsers, getUser, addUser, updateUser, deleteUser } from '../controllers/user.js'
 
 const router = Router()

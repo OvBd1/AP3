@@ -2,10 +2,9 @@ import express from 'express'
 import cors from 'cors'
 import checkTokenMiddleware from './jsonwebtoken/check.js'
 
-import db from './db.config.js'
-
-import user_router from './routes/users.js'
 import  auth_router from './routes/authentifications.js'
+import user_router from './routes/users.js'
+import product_router from './routes/products.js'
 
 const app = express()
 app.use(cors({
@@ -20,8 +19,9 @@ app.use(express.urlencoded({ extended: true }))
 
 app.get('/', (req, res) => res.send('Serveur démarré'))
 
-app.use('/users', /*checkTokenMiddleware,*/ user_router)
 app.use('/auth', auth_router)
+app.use('/users', /*checkTokenMiddleware,*/ user_router)
+app.use('/products', /*checkTokenMiddleware,*/ product_router)
 
 app.get('*', (req, res) => res.status(501).send('Page non trouvée'))
 

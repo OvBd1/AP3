@@ -5,7 +5,7 @@ import { FaLock } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    const [username, setUsername] = useState('');
+    const [adresse_mail, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
@@ -13,12 +13,12 @@ const Login = () => {
         e.preventDefault();
 
         // Remplacez par votre appel API pour la connexion
-        fetch('http://localhost:5000/login', {
+        fetch('http://localhost:5000/auth', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ username, password }),
+            body: JSON.stringify({ adresse_mail, password }),
         })
         .then((response) => {
             if (response.ok) {
@@ -31,14 +31,15 @@ const Login = () => {
             console.error('Erreur:', error);
         });
     };
+
     return (
         <div className='wrapper'>
             <form onSubmit={handleSubmit}>
                 <h1>Connexion</h1>
                 <div className='input-box'>
-                    <input type='text' placeholder='Nom d’utilisateur'
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    <input type='text' placeholder='Email'
+                    value={adresse_mail}
+                    onChange={(e) => setEmail(e.target.value)}
                     required />
                     <FaUser className='icon' />
                 </div>
