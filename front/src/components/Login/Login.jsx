@@ -1,16 +1,16 @@
-import React, {useState} from 'react';
-import './Login.css';
-import { FaUser } from "react-icons/fa";
-import { FaLock } from "react-icons/fa";
-import { useNavigate } from 'react-router-dom';
+import React, {useState} from 'react'
+import './Login.css'
+import { FaUser } from "react-icons/fa"
+import { FaLock } from "react-icons/fa"
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
-    const [adresse_mail, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const navigate = useNavigate();
+    const [adresse_mail, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const navigate = useNavigate()
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
         // Remplacez par votre appel API pour la connexion
         fetch('http://localhost:5000/auth', {
@@ -22,15 +22,15 @@ const Login = () => {
         })
         .then((response) => {
             if (response.ok) {
-                navigate('/home');
+                navigate('/home')
             } else {
-                alert('Nom d’utilisateur ou mot de passe incorrect');
+                alert('Nom d’utilisateur ou mot de passe incorrect')
             }
         })
         .catch((error) => {
-            console.error('Erreur:', error);
-        });
-    };
+            console.error('Erreur:', error)
+        })
+    }
 
     return (
         <div className='wrapper'>
@@ -53,7 +53,7 @@ const Login = () => {
                 <button type="submit">Se connecter</button>
             </form>
         </div>
-    );
-};
+    )
+}
 
-export default Login;
+export default Login

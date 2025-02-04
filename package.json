@@ -1,0 +1,22 @@
+{
+  "name": "react-express-starter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "back": "npm run dev -w back",
+    "front": "npm run dev -w front",
+    "dev": "concurrently \"npm run back\" \"npm run front\"",
+    "test:back": "npm test -w back",
+    "test:front": "npm test -w front"
+  },
+  "author": "dstamenkovic",
+  "license": "ISC",
+  "workspaces": [
+    "back",
+    "front"
+  ],
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
