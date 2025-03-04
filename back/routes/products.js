@@ -3,7 +3,7 @@ import { getAllProducts, getProduct, addProduct, updateProduct, deleteProduct } 
 
 const router = Router()
 
-router.get('', getAllProducts)
+router.get('/', getAllProducts)
 
 router.get('/:id', getProduct)
 
