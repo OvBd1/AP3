@@ -13,7 +13,7 @@ const Products = () => {
   const fetchProducts = async () => {
     try {
       console.log('Début de la requête');
-      const response = await fetch('/api/products');
+      const response = await fetch('http://localhost:5000/products');
       console.log('Statut de la réponse:', response.status);
       if (!response.ok) {
         throw new Error('Erreur lors du chargement des produits.');

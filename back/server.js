@@ -21,7 +21,7 @@ app.get('/', (req, res) => res.send('Serveur démarré'))
 
 app.use('/auth', auth_router)
 app.use('/users', /*checkTokenMiddleware,*/ user_router)
-app.use('/api/products', product_router)
+app.use('/products', product_router)
 
 app.get('*', (req, res) => res.status(501).send('Page non trouvée'))
 
@@ -30,7 +30,7 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: 'Erreur serveur', error: err.message })
 })
 
-const port = process.env.SERVER_PORT || 3001
+const port = process.env.SERVER_PORT
 
 app.listen(port, () => {
     console.log(`Serveur démarré sur le port ${port}`)
