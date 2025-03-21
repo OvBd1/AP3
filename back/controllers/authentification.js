@@ -1,5 +1,5 @@
 import { compare } from 'bcrypt'
-import pkg from 'jsonwebtoken';
+import pkg from 'jsonwebtoken'
 import db from '../db.config.js'
 
 const { sign } = pkg
@@ -14,7 +14,6 @@ export async function login(req, res) {
   try {
     const req = await db.query('SELECT * FROM user WHERE mail = ?', [mail])
     let user = req[0][0]
-    console.log(user, 'zoua')
    
     if (user.length === 0) {
       return res.status(404).json({ message: 'Utilisateur n\'existe pas' })
@@ -32,7 +31,6 @@ export async function login(req, res) {
       mail: user.mail
     }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_DURING })
 
-    // console.log(token)
     return res.json({ access_token: token })
   } catch (err) {
     res.status(500).json({ message: 'Erreur lors du login', error: err })

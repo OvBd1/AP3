@@ -6,9 +6,8 @@ const config = {
   port: process.env.DB_PORT || 3307,
   user: process.env.DB_USER || 'root',
   database: process.env.DB_NAME || 'db_slam_ap',
-  password: process.env.DB_PASSWORD,
-
 }
+
 // Ajouter le mot de passe seulement s'il est défini
 if (process.env.DB_PASS) {
   config.password = process.env.DB_PASS

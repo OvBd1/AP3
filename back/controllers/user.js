@@ -38,7 +38,6 @@ export async function addUser(req, res) {
     
     if (user[0].length === 0) {
       let hash = await _hash(mdp, parseInt(process.env.BCRYPT_SALT_ROUND))
-      mdp = hash
   
       let userc = "INSERT INTO user (nom, prenom, mail, mdp, num_tel, date_naissance) VALUES (?, ?, ?, ?, ?, ?)"
       user = await db.query(userc, [nom, prenom, mail, hash, num_tel, date_naissance])
@@ -72,7 +71,7 @@ export async function updateUser(req, res) {
     )
     return res.json({ message: 'Utilisateur modifié' })    
   } catch (err) {
-    // console.log(err)
+    console.log(err)
     res.status(500).json({ message: 'Erreur BDD', error: err })
   }
 }

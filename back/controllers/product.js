@@ -1,10 +1,10 @@
 import db from '../db.config.js'
 
 export function getAllProducts(req, res) {
-	console.log('Requête getAllProducts reçue')
+	// console.log('Requête getAllProducts reçue')
 	db.query("SELECT * FROM `produit`")
 		.then((products) => {
-			console.log('Produits récupérés:', products[0])
+			// console.log('Produits récupérés:', products[0])
 			res.json({ data: products[0] })
 		})
 		.catch((err) => {
