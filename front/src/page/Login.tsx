@@ -1,10 +1,62 @@
 import { useState } from 'react';
+import {api} from '../utils/api'; // Import your API utility
 
 export default function AuthForm() {
   const [isLogin, setIsLogin] = useState(true);
+  const [formData, setFormData] = useState({
+    nom: '',
+    prenom: '',
+    num_tel: '',
+    date_naissance: '',
+    mail: '',
+    mdp: '',
+  });
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const endpoint = isLogin ? '/auth' : '/users';
+
+    try {
+      // Prepare the data to match the backend's expected keys
+      const requestData = isLogin
+        ? { mail: formData.mail, mdp: formData.mdp } // For login
+        : { ...formData }; // For signup (all fields)
+
+      // Use api.post for making the request
+      const response = await api.post(endpoint, requestData);
+
+      if (isLogin) {
+        // Store the token in localStorage
+        localStorage.setItem('token', response.data.token);
+        console.log('Logged in successfully');
+        // Redirect or update state to reflect logged-in status
+      } else {
+        // After successful signup, automatically log the user in
+        const loginResponse = await api.post('/auth', {
+          mail: formData.mail,
+          mdp: formData.mdp,
+        });
+
+        localStorage.setItem('token', loginResponse.data.token);
+        console.log('Signed up and logged in successfully');
+      }
+    } catch (error) {
+      console.error('There was a problem with the request:', error);
+      // Handle errors (e.g., display error messages to the user)
+    }
   };
 
   return (
@@ -22,7 +74,7 @@ export default function AuthForm() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action="#" method="POST" className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
             {!isLogin && (
               <>
                 <div>
@@ -35,6 +87,8 @@ export default function AuthForm() {
                       name="nom"
                       type="text"
                       required
+                      value={formData.nom}
+                      onChange={handleChange}
                       className="block w-full border rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 sm:text-sm/6"
                     />
                   </div>
@@ -49,6 +103,8 @@ export default function AuthForm() {
                       name="prenom"
                       type="text"
                       required
+                      value={formData.prenom}
+                      onChange={handleChange}
                       className="block w-full border rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 sm:text-sm/6"
                     />
                   </div>
@@ -63,6 +119,8 @@ export default function AuthForm() {
                       name="num_tel"
                       type="tel"
                       required
+                      value={formData.num_tel}
+                      onChange={handleChange}
                       className="block w-full border rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 sm:text-sm/6"
                     />
                   </div>
@@ -77,6 +135,8 @@ export default function AuthForm() {
                       name="date_naissance"
                       type="date"
                       required
+                      value={formData.date_naissance}
+                      onChange={handleChange}
                       className="block w-full border rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 sm:text-sm/6"
                     />
                   </div>
@@ -84,16 +144,18 @@ export default function AuthForm() {
               </>
             )}
             <div>
-              <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
+              <label htmlFor="mail" className="block text-sm/6 font-medium text-gray-900">
                 Email address
               </label>
               <div className="">
                 <input
-                  id="email"
-                  name="email"
+                  id="mail"
+                  name="mail"
                   type="email"
                   required
                   autoComplete="email"
+                  value={formData.mail}
+                  onChange={handleChange}
                   className="block w-full border rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 sm:text-sm/6"
                 />
               </div>
@@ -101,17 +163,19 @@ export default function AuthForm() {
 
             <div>
               <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
+                <label htmlFor="mdp" className="block text-sm/6 font-medium text-gray-900">
                   Password
                 </label>
               </div>
               <div className="">
                 <input
-                  id="password"
-                  name="password"
+                  id="mdp"
+                  name="mdp"
                   type="password"
                   required
                   autoComplete={isLogin ? "current-password" : "new-password"}
+                  value={formData.mdp}
+                  onChange={handleChange}
                   className="block w-full border rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 sm:text-sm/6"
                 />
               </div>
@@ -120,7 +184,7 @@ export default function AuthForm() {
             <div>
               <button
                 type="submit"
-                className="text-sm px-4 py-2.5 w-full bg-blue text-white font-semibold tracking-wide bg-transparent hover:bg-slate-100 text-slate-900 rounded-md"
+                className="text-sm px-4 bg-blue py-2.5 w-full text-white font-semibold tracking-wide hover:bg-slate-100 text-slate-900 rounded-md"
               >
                 {isLogin ? 'Sign in' : 'Sign up'}
               </button>
