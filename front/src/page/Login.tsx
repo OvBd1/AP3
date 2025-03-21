@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import {api} from '../utils/api'; // Import your API utility
+import { useNavigate } from 'react-router-dom';
 
 export default function AuthForm() {
   const [isLogin, setIsLogin] = useState(true);
@@ -11,6 +12,7 @@ export default function AuthForm() {
     mail: '',
     mdp: '',
   });
+  const navigate = useNavigate(); // Hook for navigation
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
@@ -30,17 +32,15 @@ export default function AuthForm() {
     const endpoint = isLogin ? '/auth' : '/users';
 
     try {
-      // Prepare the data to match the backend's expected keys
       const requestData = isLogin
         ? { mail: formData.mail, mdp: formData.mdp } // For login
         : { ...formData }; // For signup (all fields)
 
       // Use api.post for making the request
       const response = await api.post(endpoint, requestData);
-
       if (isLogin) {
         // Store the token in localStorage
-        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('token', response.access_token);
         console.log('Logged in successfully');
         // Redirect or update state to reflect logged-in status
       } else {
@@ -50,9 +50,11 @@ export default function AuthForm() {
           mdp: formData.mdp,
         });
 
-        localStorage.setItem('token', loginResponse.data.token);
+        localStorage.setItem('token', loginResponse.access_token);
         console.log('Signed up and logged in successfully');
+        
       }
+      navigate("/")
     } catch (error) {
       console.error('There was a problem with the request:', error);
       // Handle errors (e.g., display error messages to the user)

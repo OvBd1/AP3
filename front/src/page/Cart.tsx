@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface Product {
   nom_produit: string;
@@ -17,6 +18,8 @@ interface Product {
 
 const Cart: React.FC = () => {
   const [cart, setCart] = useState<Product[]>([]);
+  const navigate = useNavigate();
+  const connected = localStorage.getItem('token') != null; // Check if user is connected
 
   // Load cart data from localStorage on component mount
   useEffect(() => {
@@ -31,7 +34,7 @@ const Cart: React.FC = () => {
 
   const groupProducts = (cart: Product[]) => {
     const groupedProducts: { [key: string]: Product } = {};
-  
+
     cart.forEach((product) => {
       if (groupedProducts[product.nom_produit]) {
         // If the product already exists in the groupedProducts, increment the quantity
@@ -41,7 +44,7 @@ const Cart: React.FC = () => {
         groupedProducts[product.nom_produit] = { ...product, quantity: product.quantity || 1 };
       }
     });
-  
+
     return Object.values(groupedProducts);
   };
 
@@ -68,9 +71,37 @@ const Cart: React.FC = () => {
   const tax = subtotal * 0.02; // 2% tax
   const total = subtotal + shipping + tax;
 
-  return (
+  if (!connected) {
+    return (
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         <h2 className="text-2xl font-bold tracking-tight text-gray-900">Panier</h2>
+        <div className="mt-8 text-center">
+          <p className="text-red-600">You are not connected.</p>
+          <button
+            onClick={() => navigate('/login')}
+            className="mt-4 text-sm px-4 py-2 font-semibold tracking-wide bg-blue-600 hover:bg-blue-700 text-white rounded-md"
+          >
+            Signup here
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (cart.length === 0) {
+    return (
+      <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+        <h2 className="text-2xl font-bold tracking-tight text-gray-900">Panier</h2>
+        <div className="mt-8 text-center">
+          <p className="text-gray-600">No products in the cart.</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+      <h2 className="text-2xl font-bold tracking-tight text-gray-900">Panier</h2>
       <div className="grid md:grid-cols-3 gap-10 mt-8">
         <div className="md:col-span-2 space-y-4">
           {groupedCart.map((product, index) => {
