@@ -7,9 +7,9 @@ router.get('', getAllUsers)
 
 router.get('/:id', getUser)
 
-router.put("", addUser)
+router.post("", addUser)
 
-router.patch('/:id', updateUser)
+router.put('/:id', updateUser)
 
 router.delete("/:id", deleteUser)
 

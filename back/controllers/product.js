@@ -2,7 +2,7 @@ import db from '../db.config.js'
 
 export function getAllProducts(req, res) {
 	console.log('Requête getAllProducts reçue')
-	db.query("SELECT * FROM `t_produit`")
+	db.query("SELECT * FROM `produit`")
 		.then((products) => {
 			console.log('Produits récupérés:', products[0])
 			res.json({ data: products[0] })
@@ -21,7 +21,7 @@ export async function getProduct(req, res) {
 	}
 
 	try {
-		let produit = await db.query("SELECT * FROM t_produit WHERE id_t_produit = ?", [productId])
+		let produit = await db.query("SELECT * FROM produit WHERE id_produit = ?", [productId])
 		if (produit === null) {
 			return res.status(404).json({ message: "Produit n'existe pas" })
 		}
@@ -40,7 +40,7 @@ export async function addProduct(req, res) {
 
 	try {
 		let produit = await db.query(
-			'INSERT INTO t_produit (nom_produit, description, forme, dosage, prix, laboratoire_fabriquant) VALUES (?, ?, ?, ?, ?, ?)',
+			'INSERT INTO produit (nom_produit, description, forme, dosage, prix, laboratoire_fabriquant) VALUES (?, ?, ?, ?, ?, ?)',
 			[nom_produit, description, forme, dosage, prix, laboratoire_fabriquant]
 		)
 		return res.json({ message: 'Produit ajouté' })
@@ -59,13 +59,13 @@ export async function updateProduct(req, res) {
 	}
 
 	try {
-		let product = await db.query('SELECT * FROM t_produit WHERE id_t_produit = ?', [productId])
+		let product = await db.query('SELECT * FROM produit WHERE id_produit = ?', [productId])
 		if (product[0].length === 0) {
 			return res.status(404).json({ message: 'Produit n\'existe pas' })
 		}
 
 		let productUpdate = await db.query(
-			'UPDATE t_produit SET nom_produit = ?, description = ?, forme = ?, dosage = ?, prix = ?, laboratoire_fabriquant = ? WHERE id_t_produit = ?',
+			'UPDATE produit SET nom_produit = ?, description = ?, forme = ?, dosage = ?, prix = ?, laboratoire_fabriquant = ? WHERE id_produit = ?',
 			[nom_produit, description, forme, dosage, prix, laboratoire_fabriquant, productId]
 		)
 		return res.json({ message: 'Produit modifié' })    
