@@ -1,7 +1,7 @@
 # AP3
 
 ## Description
-AP3 est un projet de développement d'une application web pour l'entreprise fictive GSB avec une architecture front-end et back-end en monorepo. C'est une application permettant d'acheter des médicaments
+AP3 est un projet de développement d'une application web pour l'entreprise fictive GSB avec une architecture front-end et back-end en monorepo. C'est une application permettant d'acheter des médicaments et d'administrer les médicaments.
 
 ## Prérequis
 Avant d'installer et d'exécuter ce projet, assurez-vous d'avoir les éléments suivants installés sur votre machine :
