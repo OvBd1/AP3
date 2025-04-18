@@ -8,7 +8,7 @@ export default function Products() {
   useEffect(() => {
     api
       .get<Product[]>('/products')
-      .then(response => setProducts(response.data))
+      .then(response => setProducts(response))
       .catch(error => console.error('Erreur lors de la récupération des produits :', error))
   }, [])
 

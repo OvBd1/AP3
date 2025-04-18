@@ -5,6 +5,7 @@ import checkTokenMiddleware from './jsonwebtoken/check.js'
 import  auth_router from './routes/authentifications.js'
 import user_router from './routes/users.js'
 import product_router from './routes/products.js'
+import category_router from './routes/categories.js'
 
 const app = express()
 app.use(cors({
@@ -22,6 +23,7 @@ app.get('/', (req, res) => res.send('Serveur démarré'))
 app.use('/auth', auth_router)
 app.use('/users', /*checkTokenMiddleware,*/ user_router)
 app.use('/products', product_router)
+app.use('/categories', category_router)
 
 app.get('*', (req, res) => res.status(501).send('Page non trouvée'))
 

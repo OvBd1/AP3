@@ -5,7 +5,7 @@ export function getAllProducts(req, res) {
 	db.query("SELECT * FROM `produit`")
 		.then((products) => {
 			// console.log('Produits récupérés:', products[0])
-			res.json({ data: products[0] })
+			res.json(products[0])
 		})
 		.catch((err) => {
 			console.error('Erreur SQL:', err)
@@ -25,23 +25,23 @@ export async function getProduct(req, res) {
 		if (produit === null) {
 			return res.status(404).json({ message: "Produit n'existe pas" })
 		}
-		return res.json({ data: produit[0] })
+		return res.json(produit[0])
 	} catch (err) {
 		res.status(500).json({ message: "Erreur BDD", error: err })
 	}
 }
 
 export async function addProduct(req, res) {
-	let { nom_produit, description, forme, dosage, prix, laboratoire_fabriquant } = req.body
+	let { nom_produit, description, forme, dosage, prix, image, restriction, conservation } = req.body
 	
-	if (!nom_produit || !description || !forme || !dosage || !prix || !laboratoire_fabriquant) {
+	if (!nom_produit || !description || !forme || !dosage || !prix ) {
 		return res.status(400).json({ message: "Il manque un paramètre" })
 	}
 
 	try {
 		let produit = await db.query(
-			'INSERT INTO produit (nom_produit, description, forme, dosage, prix, laboratoire_fabriquant) VALUES (?, ?, ?, ?, ?, ?)',
-			[nom_produit, description, forme, dosage, prix, laboratoire_fabriquant]
+			'INSERT INTO produit (nom_produit, description, forme, dosage, prix, image_url, restriction, conservation) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+			[nom_produit, description, forme, dosage, prix, image, restriction, conservation]
 		)
 		return res.json({ message: 'Produit ajouté' })
 	} catch (err) {

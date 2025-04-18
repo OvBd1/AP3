@@ -13,7 +13,7 @@ const navigation = [
 export default function MainLayout() {
   const navigate = useNavigate()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const connected = localStorage.getItem('token') != null // Check if user is connected
+  const connected = localStorage.getItem('token') != null 
   const handleLogout = () => {
     localStorage.removeItem('token')
     navigate('/login')
@@ -28,7 +28,7 @@ export default function MainLayout() {
               <span className="sr-only">Your Company</span>
               <img
                 alt=""
-                src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
+                src="/images/gsb-logo.png"
                 className="h-8 w-auto"
               />
             </a>
@@ -73,7 +73,7 @@ export default function MainLayout() {
                 <span className="sr-only">Your Company</span>
                 <img
                   alt=""
-                  src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
+                  src="/images/gsb-logo.png"
                   className="h-8 w-auto"
                 />
               </a>

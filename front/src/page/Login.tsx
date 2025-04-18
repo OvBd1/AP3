@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import {api} from '../utils/api'; // Import your API utility
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react'
+import { api } from '../utils/api' 
+import { useNavigate } from 'react-router-dom'
 
 export default function AuthForm() {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(true)
   const [formData, setFormData] = useState({
     nom: '',
     prenom: '',
@@ -11,55 +11,51 @@ export default function AuthForm() {
     date_naissance: '',
     mail: '',
     mdp: '',
-  });
-  const navigate = useNavigate(); // Hook for navigation
+  })
+
+  const navigate = useNavigate() 
 
   const toggleForm = () => {
-    setIsLogin(!isLogin);
-  };
+    setIsLogin(!isLogin)
+  }
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
     setFormData({
       ...formData,
       [name]: value,
-    });
-  };
+    })
+  }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault()
 
-    const endpoint = isLogin ? '/auth' : '/users';
+    const endpoint = isLogin ? '/auth' : '/users'
 
     try {
       const requestData = isLogin
-        ? { mail: formData.mail, mdp: formData.mdp } // For login
-        : { ...formData }; // For signup (all fields)
+        ? { mail: formData.mail, mdp: formData.mdp } 
+        : { ...formData } 
 
-      // Use api.post for making the request
-      const response = await api.post(endpoint, requestData);
+      const response = await api.post(endpoint, requestData) as { access_token: string }
       if (isLogin) {
-        // Store the token in localStorage
-        localStorage.setItem('token', response.access_token);
-        console.log('Logged in successfully');
-        // Redirect or update state to reflect logged-in status
+        localStorage.setItem('token', response.access_token)
+        console.log('Logged in successfully')
       } else {
-        // After successful signup, automatically log the user in
         const loginResponse = await api.post('/auth', {
           mail: formData.mail,
           mdp: formData.mdp,
-        });
+        }) as { access_token: string }
 
-        localStorage.setItem('token', loginResponse.access_token);
-        console.log('Signed up and logged in successfully');
+        localStorage.setItem('token', loginResponse.access_token)
+        console.log('Signed up and logged in successfully')
         
       }
       navigate("/")
     } catch (error) {
-      console.error('There was a problem with the request:', error);
-      // Handle errors (e.g., display error messages to the user)
+      console.error('There was a problem with the request:', error)
     }
-  };
+  }
 
   return (
     <>
@@ -67,7 +63,7 @@ export default function AuthForm() {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             alt="Your Company"
-            src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
+            src="/images/gsb-logo.png"
             className="mx-auto h-10 w-auto"
           />
           <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
@@ -202,5 +198,5 @@ export default function AuthForm() {
         </div>
       </div>
     </>
-  );
+  )
 }

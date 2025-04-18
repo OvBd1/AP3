@@ -1,4 +1,5 @@
 export interface Product {
+    id_produit: number
     nom_produit: string;
     description?: string;
     forme: string;
@@ -8,7 +9,6 @@ export interface Product {
     restriction?: string;
     conservation: string;
     id_categorie: number;
-    createdAt?: string; // Optionally add for tracking creation date
-    updatedAt?: string; // Optionally add for tracking update date
-  }
-  
+    createdAt?: string;
+    updatedAt?: string;
+}

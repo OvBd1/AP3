@@ -3,7 +3,7 @@ import db from '../db.config.js'
 
 export function getAllUsers(req, res) {
 	db.query("SELECT * FROM user")
-		.then((users) => res.json({ data: users[0] }))
+		.then((users) => res.json(users[0]))
 		.catch((err) =>
 			res.status(500).json({ message: "Erreur BDD", error: err })
 		)
@@ -20,7 +20,7 @@ export async function getUser(req, res) {
 		if (data === null) {
 			return res.status(404).json({ message: "Utilisateur n'existe pas" })
 		}
-		return res.json({ data: data[0] })
+		return res.json(data[0])
 	} catch (err) {
 		res.status(500).json({ message: "Erreur BDD", error: err })
 	}

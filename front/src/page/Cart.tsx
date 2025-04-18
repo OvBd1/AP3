@@ -1,75 +1,68 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 interface Product {
-  nom_produit: string;
-  description?: string;
-  forme: string;
-  dosage: string;
-  prix: number; // Ensure this is a number
-  image_url: string;
-  restriction?: string;
-  conservation: string;
-  id_categorie: number;
-  createdAt?: string;
-  updatedAt?: string;
-  quantity: number;
+  nom_produit: string
+  description?: string
+  forme: string
+  dosage: string
+  prix: number
+  image_url: string
+  restriction?: string
+  conservation: string
+  id_categorie: number
+  createdAt?: string
+  updatedAt?: string
+  quantity: number
 }
 
 const Cart: React.FC = () => {
-  const [cart, setCart] = useState<Product[]>([]);
-  const navigate = useNavigate();
-  const connected = localStorage.getItem('token') != null; // Check if user is connected
+  const [cart, setCart] = useState<Product[]>([])
+  const navigate = useNavigate()
+  const connected = localStorage.getItem('token') != null 
 
-  // Load cart data from localStorage on component mount
   useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem('cart') || '[]');
-    // Ensure `prix` is a number
+    const storedCart = JSON.parse(localStorage.getItem('cart') || '[]')
     const validatedCart = storedCart.map((product: Product) => ({
       ...product,
       prix: typeof product.prix === 'string' ? parseFloat(product.prix) : product.prix,
-    }));
-    setCart(validatedCart);
-  }, []);
+    }))
+    setCart(validatedCart)
+  }, [])
 
   const groupProducts = (cart: Product[]) => {
-    const groupedProducts: { [key: string]: Product } = {};
+    const groupedProducts: { [key: string]: Product } = {}
 
     cart.forEach((product) => {
       if (groupedProducts[product.nom_produit]) {
-        // If the product already exists in the groupedProducts, increment the quantity
-        groupedProducts[product.nom_produit].quantity += product.quantity || 1;
+        groupedProducts[product.nom_produit].quantity += product.quantity || 1
       } else {
-        // If the product does not exist, add it to the groupedProducts with the initial quantity
-        groupedProducts[product.nom_produit] = { ...product, quantity: product.quantity || 1 };
+        groupedProducts[product.nom_produit] = { ...product, quantity: product.quantity || 1 }
       }
-    });
+    })
 
-    return Object.values(groupedProducts);
-  };
+    return Object.values(groupedProducts)
+  }
 
-  // Function to update the quantity of a product in the cart
   const updateQuantity = (index: number, newQuantity: number) => {
     const updatedCart = cart.map((product, i) =>
       i === index ? { ...product, quantity: newQuantity } : product
-    );
-    setCart(updatedCart);
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
-  };
+    )
+    setCart(updatedCart)
+    localStorage.setItem('cart', JSON.stringify(updatedCart))
+  }
 
-  // Function to remove a product from the cart
   const removeProduct = (index: number) => {
-    const updatedCart = cart.filter((_, i) => i !== index);
-    setCart(updatedCart);
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
-  };
+    const updatedCart = cart.filter((_, i) => i !== index)
+    setCart(updatedCart)
+    localStorage.setItem('cart', JSON.stringify(updatedCart))
+  }
 
-  // Calculate subtotal, shipping, tax, and total
-  const groupedCart = groupProducts(cart);
-  const subtotal = groupedCart.reduce((sum, product) => sum + (product.prix || 0) * (product.quantity || 1), 0);
-  const shipping = 2.0; // Fixed shipping cost
-  const tax = subtotal * 0.02; // 2% tax
-  const total = subtotal + shipping + tax;
+  const groupedCart = groupProducts(cart)
+  const subtotal = groupedCart.reduce((sum, product) => sum + (product.prix || 0) * (product.quantity || 1), 0)
+  const shipping = 2.0 
+  const tax = subtotal * 0.02 
+  const total = subtotal + shipping + tax
 
   if (!connected) {
     return (
@@ -85,7 +78,7 @@ const Cart: React.FC = () => {
           </button>
         </div>
       </div>
-    );
+    )
   }
 
   if (cart.length === 0) {
@@ -96,7 +89,7 @@ const Cart: React.FC = () => {
           <p className="text-gray-600">No products in the cart.</p>
         </div>
       </div>
-    );
+    )
   }
 
   return (
@@ -105,7 +98,7 @@ const Cart: React.FC = () => {
       <div className="grid md:grid-cols-3 gap-10 mt-8">
         <div className="md:col-span-2 space-y-4">
           {groupedCart.map((product, index) => {
-            const prix = typeof product.prix === 'number' ? product.prix : parseFloat(product.prix);
+            const prix = typeof product.prix === 'number' ? product.prix : parseFloat(product.prix)
             return (
               <div key={index} className="flex gap-4 bg-white px-4 py-6 rounded-md shadow-[0_2px_12px_-3px_rgba(61,63,68,0.3)]">
                 <div className="flex gap-4">
@@ -163,7 +156,7 @@ const Cart: React.FC = () => {
                   </h3>
                 </div>
               </div>
-            );
+            )
           })}
         </div>
 
@@ -189,7 +182,7 @@ const Cart: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Cart;
+export default Cart

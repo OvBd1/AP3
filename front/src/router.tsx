@@ -5,6 +5,7 @@ import Home from './page/Home'
 import Products from './page/Products'
 import Login from './page/Login'
 import Cart from './page/Cart'
+import AdminDashboard from './page/AdminDashboard'
 
 
 export default function App() {
@@ -16,11 +17,7 @@ export default function App() {
           <Route index element={<Home />} />
           <Route path="Products" element={<Products />} />
           <Route path="Cart" element={<Cart />} />
-          {/* <Route path="NousConnaitre" element={<NousConnaitre />} />
-          <Route path="EspacePresse" element={<EspacePresse />} />
-          <Route path="AdminPanel" element={<AdminPanel />} />
-          <Route path="Panier" element={<Panier />} />
-          <Route path="NosProjets" element={<NosProjets />} /> */}
+          <Route path="Admin" element={<AdminDashboard />} />
         </Route>
       </Routes>
     </BrowserRouter>
