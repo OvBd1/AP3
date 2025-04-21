@@ -12,9 +12,9 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route index element={<Login />} />
         <Route path="/" element={<MainLayout />}>
-          <Route index element={<Home />} />
+          <Route path="Home" element={<Home />} />
           <Route path="Products" element={<Products />} />
           <Route path="Cart" element={<Cart />} />
           <Route path="Admin" element={<AdminDashboard />} />

@@ -24,6 +24,7 @@ export async function login(req, res) {
     if (!match) {
       return res.status(401).json({ message: 'Mauvais mot de passe' })
     }
+
     const token = sign({
       id: user.id_user,
       nom: user.nom,
@@ -31,7 +32,7 @@ export async function login(req, res) {
       mail: user.mail
     }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_DURING })
 
-    return res.json({ access_token: token })
+    return res.json({ access_token: token, admin: user.admin })
   } catch (err) {
     res.status(500).json({ message: 'Erreur lors du login', error: err })
   }

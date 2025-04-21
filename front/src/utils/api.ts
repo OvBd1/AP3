@@ -24,6 +24,10 @@ export async function apiFetch<T>(
     return Promise.reject(new Error(`Erreur HTTP ${response.status}`));
   }
 
+  if (response.status === 204) {
+    return Promise.resolve({} as T);
+  }
+
   return response.json() as Promise<T>;
 }
 

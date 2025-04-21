@@ -51,7 +51,7 @@ export default function AuthForm() {
         console.log('Signed up and logged in successfully')
         
       }
-      navigate("/")
+      navigate("/Home")
     } catch (error) {
       console.error('There was a problem with the request:', error)
     }

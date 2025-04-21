@@ -8,6 +8,7 @@ export interface Product {
     image_url: string;
     restriction?: string;
     conservation: string;
+    quantite: number;
     id_categorie: number;
     createdAt?: string;
     updatedAt?: string;
