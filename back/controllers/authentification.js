@@ -28,8 +28,7 @@ export async function login(req, res) {
     const token = sign({
       id: user.id_user,
       nom: user.nom,
-      prenom: user.prenom,
-      mail: user.mail
+      auth: user.admin
     }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_DURING })
 
     return res.json({ access_token: token, admin: user.admin })

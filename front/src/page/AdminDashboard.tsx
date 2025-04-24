@@ -117,6 +117,7 @@ const AdminDashboard: React.FC = () => {
           setProductToEdit(null)
         }}
         onSave={async (product) => {
+          console.log(product)
           await api.put(`/products/${product.id_produit}`, product)
           fetchProducts()
           setShowEditProductModal(false)

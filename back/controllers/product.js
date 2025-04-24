@@ -52,7 +52,7 @@ export async function addProduct(req, res) {
 export async function updateProduct(req, res) {
 	let productId = parseInt(req.params.id)
 
-	let { nom_produit, description, forme, dosage, prix, laboratoire_fabriquant } = req.body
+	let { nom_produit, description, forme, dosage, prix } = req.body
 
 	if (!productId) {
 		return res.status(400).json({ message: 'Il manque un paramètre' })
@@ -65,8 +65,8 @@ export async function updateProduct(req, res) {
 		}
 
 		let productUpdate = await db.query(
-			'UPDATE produit SET nom_produit = ?, description = ?, forme = ?, dosage = ?, prix = ?, laboratoire_fabriquant = ? WHERE id_produit = ?',
-			[nom_produit, description, forme, dosage, prix, laboratoire_fabriquant, productId]
+			'UPDATE produit SET nom_produit = ?, description = ?, forme = ?, dosage = ?, prix = ? WHERE id_produit = ?',
+			[nom_produit, description, forme, dosage, prix, productId]
 		)
 		return res.json({ message: 'Produit modifié' })    
 	} catch (err) {

@@ -36,9 +36,6 @@ export const UserSection: React.FC<Props> = ({
                 <td className="p-2">{user.mail}</td>
                 <td className="p-2">{user.admin ? 'true' : 'false'}</td>
                 <td className="p-2 flex gap-2">
-                  <button onClick={() => setUserToDelete(user)}>
-                    <TrashIcon className="w-5 h-5 text-red-600" />
-                  </button>
                   <button
                     onClick={() => {
                       setUserToEdit(user)
@@ -46,6 +43,9 @@ export const UserSection: React.FC<Props> = ({
                     }}
                   >
                     <PencilSquareIcon className="w-5 h-5 text-blue-600" />
+                  </button>
+                  <button onClick={() => setUserToDelete(user)}>
+                    <TrashIcon className="w-5 h-5 text-red-600" />
                   </button>
                 </td>
               </tr>
