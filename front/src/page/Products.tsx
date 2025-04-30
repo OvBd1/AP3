@@ -26,21 +26,21 @@ export default function Products() {
 
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {products.map((product, index) => (
-            <div key={index} className="group relative">
+            <div key={index} className="group relative px-4 py-6 rounded-md shadow-[0_2px_12px_-3px_rgba(61,63,68,0.3)]">
               <img
                 src={product.image_url}
-                className="aspect-square w-full rounded-md bg-gray-200 object-contain group-hover:opacity-75 lg:aspect-auto lg:h-80"
+                className="aspect-square w-full rounded-md bg-transparent object-contain group-hover:opacity-75 lg:aspect-auto lg:h-80"
               />
               <div className="mt-4 flex justify-between">
                 <div>
-                  <p className="mt-1 text-sm text-gray-500">{product.description}</p>
+                  <p className="mt-1 text-sm text-gray-900">{product.nom_produit}</p>
                 </div>
                 <p className="text-sm font-medium text-gray-900">{product.prix} €</p>
               </div>
 
               <button
                 onClick={() => addToCart(product)}
-                className="mt-4 inline-block rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold hover:bg-blue-700"
+                className="mt-4 inline-block rounded-md bg-blue-300 px-4 py-2 text-sm font-semibold hover:bg-blue-700"
               >
                 Ajouter au panier
               </button>

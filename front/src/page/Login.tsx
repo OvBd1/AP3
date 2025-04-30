@@ -182,7 +182,7 @@ export default function AuthForm() {
             <div>
               <button
                 type="submit"
-                className="text-sm px-4 bg-blue py-2.5 w-full text-white font-semibold tracking-wide hover:bg-slate-100 text-slate-900 rounded-md"
+                className="text-sm px-4 bg-blue py-2.5 w-full font-semibold tracking-wide hover:bg-slate-100 text-slate-900 rounded-md"
               >
                 {isLogin ? 'Sign in' : 'Sign up'}
               </button>

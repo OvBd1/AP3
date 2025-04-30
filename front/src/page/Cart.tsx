@@ -93,6 +93,8 @@ const Cart: React.FC = () => {
   }
 
   return (
+    <div className="bg-white">
+
     <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
       <h2 className="text-2xl font-bold tracking-tight text-gray-900">Panier</h2>
       <div className="grid md:grid-cols-3 gap-10 mt-8">
@@ -110,7 +112,7 @@ const Cart: React.FC = () => {
                     <div>
                       <h3 className="text-sm sm:text-base font-semibold text-slate-900">{product.nom_produit}</h3>
                       <p className="text-sm font-semibold text-slate-500 mt-2">{product.description}</p>
-                      <p className="text-sm font-semibold text-slate-500">Form: {product.forme}</p>
+                      <p className="text-sm font-semibold text-slate-500">Forme: {product.forme}</p>
                       <p className="text-sm font-semibold text-slate-500">Dosage: {product.dosage}</p>
                       <p className="text-sm font-semibold text-slate-500">Conservation: {product.conservation}</p>
                     </div>
@@ -121,7 +123,7 @@ const Cart: React.FC = () => {
                         onClick={() => updateQuantity(index, Math.max(1, product.quantity - 1))}
                         className="flex items-center justify-center w-5 h-5 bg-slate-400 outline-none rounded-full"
                       >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="w-2 fill-white" viewBox="0 0 124 124">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-2 fill-black" viewBox="0 0 124 124">
                           <path d="M112 50H12C5.4 50 0 55.4 0 62s5.4 12 12 12h100c6.6 0 12-5.4 12-12s-5.4-12-12-12z" data-original="#000000"></path>
                         </svg>
                       </button>
@@ -131,7 +133,7 @@ const Cart: React.FC = () => {
                         onClick={() => updateQuantity(index, product.quantity + 1)}
                         className="flex items-center justify-center w-5 h-5 bg-slate-800 outline-none rounded-full"
                       >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="w-2 fill-white" viewBox="0 0 42 42">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-2 fill-black" viewBox="0 0 42 42">
                           <path d="M37.059 16H26V4.941C26 2.224 23.718 0 21 0s-5 2.224-5 4.941V16H4.941C2.224 16 0 18.282 0 21s2.224 5 4.941 5H16v11.059C16 39.776 18.282 42 21 42s5-2.224 5-4.941V26h11.059C39.776 26 42 23.718 42 21s-2.224-5-4.941-5z" data-original="#000000"></path>
                         </svg>
                       </button>
@@ -152,7 +154,7 @@ const Cart: React.FC = () => {
                     </button>
                   </div>
                   <h3 className="text-sm sm:text-base font-semibold text-slate-900 mt-auto">
-                    ${(prix * product.quantity).toFixed(2)}
+                    {(prix * product.quantity).toFixed(2)} €
                   </h3>
                 </div>
               </div>
@@ -163,15 +165,15 @@ const Cart: React.FC = () => {
         {/* Order Summary */}
         <div className="bg-white rounded-md px-4 py-6 h-max shadow-[0_2px_12px_-3px_rgba(61,63,68,0.3)]">
           <ul className="text-slate-900 font-medium space-y-4">
-            <li className="flex flex-wrap gap-4 text-sm">Subtotal <span className="ml-auto font-semibold">${subtotal.toFixed(2)}</span></li>
-            <li className="flex flex-wrap gap-4 text-sm">Shipping <span className="ml-auto font-semibold">${shipping.toFixed(2)}</span></li>
-            <li className="flex flex-wrap gap-4 text-sm">Tax <span className="ml-auto font-semibold">${tax.toFixed(2)}</span></li>
+            <li className="flex flex-wrap gap-4 text-sm">Sous-total <span className="ml-auto font-semibold">${subtotal.toFixed(2)}</span></li>
+            <li className="flex flex-wrap gap-4 text-sm">Transport <span className="ml-auto font-semibold">${shipping.toFixed(2)}</span></li>
+            <li className="flex flex-wrap gap-4 text-sm">TVA <span className="ml-auto font-semibold">${tax.toFixed(2)}</span></li>
             <hr className="border-slate-300" />
             <li className="flex flex-wrap gap-4 text-sm font-semibold">Total <span className="ml-auto">${total.toFixed(2)}</span></li>
           </ul>
 
           <div className="mt-8 space-y-2">
-            <button type="button" className="text-sm px-4 py-2.5 w-full font-semibold tracking-wide bg-transparent hover:bg-slate-100 text-slate-900 border border-slate-300 rounded-md">Buy Now</button>
+            <button type="button" className="text-sm px-4 py-2.5 w-full font-semibold tracking-wide bg-transparent hover:bg-slate-100 text-slate-900 border border-slate-300 rounded-md">Payer maintenant</button>
           </div>
 
           <div className="mt-4 flex flex-wrap justify-center gap-4">
@@ -181,6 +183,7 @@ const Cart: React.FC = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   )
 }
