@@ -34,7 +34,7 @@ export const EditUserModal: React.FC<Props> = ({ visible, user, onClose, onSave 
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
         <h2 className="text-lg font-bold mb-4">Modifier l'utilisateur</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
-          {(['nom', 'prenom', 'mail', 'num_tel'] as Array<keyof User>).map(field => (
+          {(['nom', 'prenom', 'mail', 'num_tel', 'admin'] as Array<keyof User>).map(field => (
             <div key={field}>
               <label className="block text-sm font-medium text-gray-700">
                 {field.charAt(0).toUpperCase() + field.slice(1)}

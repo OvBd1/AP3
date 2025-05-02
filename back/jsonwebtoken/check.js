@@ -15,7 +15,7 @@ const checkTokenMiddleware = (req, res, next) => {
 	const token = req.headers.authorization && extractBearer(req.headers.authorization)
 
 	if (!token) {
-		return res.status(401).json({ message: "Ho le petit malin !!!" })
+		return res.status(401).json({ message: "No token" })
 	}
 
 	verify(token, process.env.JWT_SECRET, (err, decodedToken) => {

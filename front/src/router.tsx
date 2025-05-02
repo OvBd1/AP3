@@ -1,8 +1,9 @@
 import ReactDOM from 'react-dom/client'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { jwtDecode } from 'jwt-decode'
 import MainLayout from './layout/mainLayout'
+import { tokenPayload } from './interface/tokenPayload'
 import Home from './page/Home'
 import Products from './page/Products'
 import Login from './page/Login'
@@ -10,13 +11,6 @@ import Cart from './page/Cart'
 import AdminDashboard from './page/AdminDashboard'
 
 export default function App() {
-  type tokenPayload = {
-    id: number,
-    nom: string,
-    auth: boolean,
-    exp: number
-  }
-
   const [admin, setAdmin] = useState(false)
 
   useEffect(() => {
@@ -24,6 +18,7 @@ export default function App() {
     if (token) {
       try {
         const user = jwtDecode<tokenPayload>(token)
+        console.log(user)
         setAdmin(user.auth)
       } catch (error) {
         console.error('Invalid token:', error)
@@ -40,9 +35,7 @@ export default function App() {
           <Route path="Home" element={<Home />} />
           <Route path="Products" element={<Products />} />
           <Route path="Cart" element={<Cart />} />
-          {admin && (
-            <Route path="Admin" element={admin ? <AdminDashboard /> : <Navigate to="/Home" />} />
-          )}
+          <Route path="Admin" element={admin ? <AdminDashboard /> : <Home />} />
         </Route>
       </Routes>
     </BrowserRouter>

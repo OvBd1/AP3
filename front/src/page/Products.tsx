@@ -13,10 +13,16 @@ export default function Products() {
   }, [])
 
   const addToCart = (product: Product) => {
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]') as Product[]
-    cart.push(product)
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]') as (Product & { quantityCart: number })[]
+    const existingProduct = cart.find(item => item.id_produit === product.id_produit)
+
+    if (existingProduct) {
+      existingProduct.quantityCart += 1
+    } else {
+      cart.push({ ...product, quantityCart: 1 })
+    }
+
     localStorage.setItem('cart', JSON.stringify(cart))
-    console.log('Produit ajouté au panier:', product)
   }
 
   return (

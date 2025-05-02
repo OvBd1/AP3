@@ -1,7 +1,9 @@
 import { Outlet, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { tokenPayload } from '../interface/tokenPayload'
+import { jwtDecode } from 'jwt-decode'
 
 const navigation = [
   { name: 'Accueil', href: '/Home' },
@@ -11,6 +13,22 @@ const navigation = [
 ]
 
 export default function MainLayout() {
+
+  const [admin, setAdmin] = useState(false)
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      try {
+        const user = jwtDecode<tokenPayload>(token)
+        setAdmin(user.auth)
+      } catch (error) {
+        console.error('Invalid token:', error)
+        setAdmin(false)
+      }
+    }
+  }, [])
+
   const navigate = useNavigate()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const connected = localStorage.getItem('token') != null 
@@ -43,9 +61,11 @@ export default function MainLayout() {
           </div>
           <div className="hidden lg:flex lg:gap-x-12">
             {navigation.map((item) => (
-              <a key={item.name} href={item.href} className="text-sm/6 font-semibold text-gray-900">
-                {item.name}
-              </a>
+              (!admin && item.name == "Admin") 
+                ? '' 
+                : <a key={item.name} href={item.href} className="text-sm/6 font-semibold text-gray-900">
+                    {item.name}
+                  </a>
             ))}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
@@ -86,14 +106,12 @@ export default function MainLayout() {
               <div className="-my-6 divide-y divide-gray-500/10">
                 <div className="space-y-2 py-6">
                   {navigation.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-                    >
-                      {item.name}
-                    </a>
-                  ))}
+                    (!admin && item.name == "Admin") 
+                      ? '' 
+                      :<a key={item.name} href={item.href} className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">
+                        {item.name}
+                      </a>
+                    ))}
                 </div>
                 <div className="py-6">
                   {connected ? (

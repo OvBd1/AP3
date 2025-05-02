@@ -1,20 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-
-interface Product {
-  nom_produit: string
-  description?: string
-  forme: string
-  dosage: string
-  prix: number
-  image_url: string
-  restriction?: string
-  conservation: string
-  id_categorie: number
-  createdAt?: string
-  updatedAt?: string
-  quantity: number
-}
+import { Product } from '../interface/produit'
 
 const Cart: React.FC = () => {
   const [cart, setCart] = useState<Product[]>([])
@@ -35,9 +21,9 @@ const Cart: React.FC = () => {
 
     cart.forEach((product) => {
       if (groupedProducts[product.nom_produit]) {
-        groupedProducts[product.nom_produit].quantity += product.quantity || 1
+        groupedProducts[product.nom_produit].quantite += product.quantite || 1
       } else {
-        groupedProducts[product.nom_produit] = { ...product, quantity: product.quantity || 1 }
+        groupedProducts[product.nom_produit] = { ...product, quantite: product.quantite || 1 }
       }
     })
 
@@ -59,7 +45,7 @@ const Cart: React.FC = () => {
   }
 
   const groupedCart = groupProducts(cart)
-  const subtotal = groupedCart.reduce((sum, product) => sum + (product.prix || 0) * (product.quantity || 1), 0)
+  const subtotal = groupedCart.reduce((sum, product) => sum + (product.prix || 0) * (product.quantite || 1), 0)
   const shipping = 2.0 
   const tax = subtotal * 0.02 
   const total = subtotal + shipping + tax
@@ -71,7 +57,7 @@ const Cart: React.FC = () => {
         <div className="mt-8 text-center">
           <p className="text-red-600">You are not connected.</p>
           <button
-            onClick={() => navigate('/login')}
+            onClick={() => navigate('/')}
             className="mt-4 text-sm px-4 py-2 font-semibold tracking-wide bg-blue-600 hover:bg-blue-700 text-white rounded-md"
           >
             Signup here
@@ -120,17 +106,17 @@ const Cart: React.FC = () => {
                     <div className="mt-auto flex items-center gap-3">
                       <button
                         type="button"
-                        onClick={() => updateQuantity(index, Math.max(1, product.quantity - 1))}
+                        onClick={() => updateQuantity(index, Math.max(1, product.quantityCart - 1))}
                         className="flex items-center justify-center w-5 h-5 bg-slate-400 outline-none rounded-full"
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" className="w-2 fill-black" viewBox="0 0 124 124">
                           <path d="M112 50H12C5.4 50 0 55.4 0 62s5.4 12 12 12h100c6.6 0 12-5.4 12-12s-5.4-12-12-12z" data-original="#000000"></path>
                         </svg>
                       </button>
-                      <span className="font-semibold text-sm leading-[18px]">Unité: {product.quantity}</span>
+                      <span className="font-semibold text-sm leading-[18px]">Unité: {product.quantityCart}</span>
                       <button
                         type="button"
-                        onClick={() => updateQuantity(index, product.quantity + 1)}
+                        onClick={() => updateQuantity(index, product.quantityCart + 1)}
                         className="flex items-center justify-center w-5 h-5 bg-slate-800 outline-none rounded-full"
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" className="w-2 fill-black" viewBox="0 0 42 42">
@@ -154,7 +140,7 @@ const Cart: React.FC = () => {
                     </button>
                   </div>
                   <h3 className="text-sm sm:text-base font-semibold text-slate-900 mt-auto">
-                    {(prix * product.quantity).toFixed(2)} €
+                    {(prix * product.quantite).toFixed(2)} €
                   </h3>
                 </div>
               </div>
