@@ -13,13 +13,13 @@ export default function Products() {
   }, [])
 
   const addToCart = (product: Product) => {
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]') as (Product & { quantityCart: number })[]
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]') as (Product & { quantite: number })[]
     const existingProduct = cart.find(item => item.id_produit === product.id_produit)
 
     if (existingProduct) {
-      existingProduct.quantityCart += 1
+      existingProduct.quantite += 1
     } else {
-      cart.push({ ...product, quantityCart: 1 })
+      cart.push({ ...product, quantite: 1 })
     }
 
     localStorage.setItem('cart', JSON.stringify(cart))
