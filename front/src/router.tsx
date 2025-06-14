@@ -8,6 +8,7 @@ import Home from './page/Home'
 import Products from './page/Products'
 import Login from './page/Login'
 import Cart from './page/Cart'
+import Profile from './page/Profile'
 import AdminDashboard from './page/AdminDashboard'
 
 export default function App() {
@@ -35,6 +36,7 @@ export default function App() {
           <Route path="Home" element={<Home />} />
           <Route path="Products" element={<Products />} />
           <Route path="Cart" element={<Cart />} />
+          <Route path="Profile" element={<Profile />} />
           <Route path="Admin" element={admin ? <AdminDashboard /> : <Home />} />
         </Route>
       </Routes>

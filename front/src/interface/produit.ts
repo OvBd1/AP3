@@ -13,3 +13,7 @@ export interface Product {
     createdAt?: string;
     updatedAt?: string;
 }
+
+export interface CartProduct extends Product {
+  quantite: number
+}
