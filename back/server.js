@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: true }))
 app.get('/', (req, res) => res.send('Serveur démarré'))
 
 app.use('/auth', auth_router)
-app.use('/users', checkTokenMiddleware, user_router)
+app.use('/users', /*checkTokenMiddleware,*/ user_router)
 app.use('/products', product_router)
 app.use('/categories', category_router)
 
