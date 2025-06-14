@@ -1,11 +1,13 @@
 import { Router } from 'express'
-import { getAllUsers, getUser, addUser, updateUser, deleteUser } from '../controllers/user.js'
+import { getAllUsers, getUser, getUserAuthenticated, addUser, updateUser, deleteUser } from '../controllers/user.js'
 
 const router = Router()
 
 router.get('', getAllUsers)
 
-router.get('/:id', getUser)
+router.get('/one/:id', getUser)
+
+router.get('/me', getUserAuthenticated)
 
 router.post('', addUser)
 

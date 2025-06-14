@@ -1,5 +1,8 @@
 import { hash as _hash } from "bcrypt"
 import db from '../db.config.js'
+import pkg from 'jsonwebtoken'
+
+const { decode } = pkg
 
 export function getAllUsers(req, res) {
 	db.query("SELECT * FROM user")
@@ -24,6 +27,28 @@ export async function getUser(req, res) {
 	} catch (err) {
 		res.status(500).json({ message: "Erreur BDD", error: err })
 	}
+}
+
+export async function getUserAuthenticated(req, res) {
+  let token = req.headers['authorization'].replace('Bearer ', '').trim();
+
+  if (!token) {
+    return res.status(401).json({ message: "Non autorisé" })
+  }
+
+  try {
+    const decoded = decode(token, process.env.JWT_SECRET, { complete: true });
+    const userId = decoded.id;
+
+    let data = await db.query("SELECT * FROM user WHERE id_user = ?", [userId]);
+    if (data[0].length === 0) {
+      return res.status(404).json({ message: "Utilisateur n'existe pas" });
+    }
+    console.log("User data retrieved:", data[0][0]);
+    return res.json(data[0][0]);
+  } catch (err) {
+    return res.status(401).json({ message: "Token invalide", error: err });
+  }
 }
 
 export async function addUser(req, res) {
