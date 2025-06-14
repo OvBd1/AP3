@@ -15,10 +15,8 @@ const Cart: React.FC = () => {
       quantite: product.quantite ?? 1,
     }))
     setCart(validatedCart)
-  }, [])
 
-  // Charge Stripe.js si ce n'est pas déjà fait
-  useEffect(() => {
+    // @ts-expect-error: Stripe.js n'est pas typé côté front
     if (!window.Stripe) {
       const script = document.createElement('script')
       script.src = 'https://js.stripe.com/v3/'

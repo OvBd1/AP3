@@ -1,6 +1,6 @@
 import Stripe from 'stripe'
 
-const stripe = new Stripe('sk_test_51RZvYnQZAvBsIr6NPjQFM07RjBGKQWon09S119xsJHRGVZ1yoY9DJIAnBOxt1rVsyXMUx9CWgTz22n3t6BGXfSHH00ZPfnfEN5')
+const stripe = new Stripe(process.env.STRIP_KEY)
 
 export async function payment(req, res) {
   const cart = req.body.cart
