@@ -92,7 +92,7 @@ export const EditProductModal: React.FC<Props> = ({ visible, product, onClose, o
             <input
               type="number"
               name="quantite"
-              value={formState.quantite}
+              value={formState.stock}
               onChange={handleChange}
               className="w-full border px-3 py-2 rounded"
             />
@@ -102,7 +102,7 @@ export const EditProductModal: React.FC<Props> = ({ visible, product, onClose, o
             <button type="button" onClick={onClose} className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
               Annuler
             </button>
-            <button type="submit" className="px-4 py-2 bg-blue text-white rounded hover:bg-blue-700">
+            <button type="submit" className="px-4 py-2 text-white rounded bg-blue-700">
               Enregistrer
             </button>
           </div>

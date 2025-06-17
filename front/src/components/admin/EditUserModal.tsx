@@ -53,7 +53,7 @@ export const EditUserModal: React.FC<Props> = ({ visible, user, onClose, onSave 
             <button type="button" onClick={onClose} className="px-4 py-2 text-gray-800 rounded hover:bg-gray-200">
               Annuler
             </button>
-            <button type="submit" className="px-4 py-2 bg-blue text-white rounded hover:bg-blue-700">
+            <button type="submit" className="px-4 py-2 text-white rounded bg-blue-700">
               Enregistrer
             </button>
           </div>

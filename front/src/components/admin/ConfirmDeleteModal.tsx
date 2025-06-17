@@ -26,7 +26,7 @@ export const ConfirmDeleteModal: React.FC<Props> = ({
           <button onClick={onCancel} className="px-4 py-2 text-gray-800 rounded hover:bg-gray-200">
             Annuler
           </button>
-          <button onClick={onConfirm} className="px-4 py-2 bg-blue text-white rounded hover:bg-red-700">
+          <button onClick={onConfirm} className="px-4 py-2 text-white rounded bg-red-700">
             Supprimer
           </button>
         </div>
